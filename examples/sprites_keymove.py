@@ -68,17 +68,17 @@ if __name__ == '__main__':
             # Stop moving the sprite when the key is released.
             if event.type == KEYUP:
                 sheep.depl = (0, 0)
-                continue
 
             # On key pressed, determine the direction.
-            if event.key == K_UP:
-                sheep.depl = (0, -10)
-            elif event.key == K_DOWN:
-                sheep.depl = (0, 10)
-            if event.key == K_RIGHT:
-                sheep.depl = (10, 0)
-            elif event.key == K_LEFT:
-                sheep.depl = (-10, 0)
+            if event.type == KEYDOWN:
+                if event.key == K_UP:
+                    sheep.depl = (0, -10)
+                elif event.key == K_DOWN:
+                    sheep.depl = (0, 10)
+                if event.key == K_RIGHT:
+                    sheep.depl = (10, 0)
+                elif event.key == K_LEFT:
+                    sheep.depl = (-10, 0)
 
         # Update the sprites group.
         sheep_group.clear(screen, background)
