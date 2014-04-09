@@ -23,6 +23,7 @@ class SheepSprite(pygame.sprite.Sprite):
         x, y = self.position
         dx, dy = self.depl
 
+        # Update the position only if the image stays in borders.
         if (x + dx > 0 and x + dx < window_size[0] and
             y + dy > 0 and y + dy < window_size[1]):
             self.position = (x + dx, y + dy)
@@ -43,6 +44,7 @@ if __name__ == '__main__':
 
     # Init the background.
     background = pygame.image.load('grass.png')
+    background = pygame.transform.scale(background, window_size)
     screen.blit(background, (0, 0))
 
     # Init the image.
@@ -63,10 +65,12 @@ if __name__ == '__main__':
             if not hasattr(event, 'key'):
                 continue
 
+            # Stop moving the sprite when the key is released.
             if event.type == KEYUP:
                 sheep.depl = (0, 0)
                 continue
 
+            # On key pressed, determine the direction.
             if event.key == K_UP:
                 sheep.depl = (0, -10)
             elif event.key == K_DOWN:
@@ -76,10 +80,11 @@ if __name__ == '__main__':
             elif event.key == K_LEFT:
                 sheep.depl = (-10, 0)
 
+        # Update the sprites group.
         sheep_group.clear(screen, background)
-
         sheep_group.update(deltat)
         sheep_group.draw(screen)
+
         pygame.display.flip()
 
     pygame.quit()
